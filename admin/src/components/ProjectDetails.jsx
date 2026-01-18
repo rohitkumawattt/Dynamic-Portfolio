@@ -9,7 +9,7 @@ const ProjectDetail = ({ showModal, setShowModal, project }) => {
       } duration-300`}
     >
       <div
-        className={`w-[90%] md:w-[50%] max-h-[600px] overflow-y-auto border border-white bg-[#121B30] p-8 rounded-lg shadow-lg relative`}
+        className={`w-[90%] md:w-[50%] max-h-[600px] overflow-y-auto border border-white bg-transparent backdrop-blur-3xl p-8 rounded-lg shadow-lg relative`}
       >
         <button
           onClick={() => setShowModal(false)}

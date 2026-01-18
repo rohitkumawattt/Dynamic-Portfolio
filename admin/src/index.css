@@ -38,6 +38,9 @@ body::-webkit-scrollbar {
   .primary-color {
     color: #9c85bd;
   }
+  .bg-primary{
+    background-color: #9c85bd;
+  }
 
   .primary-border {
     border: 4px solid #9c85bd;

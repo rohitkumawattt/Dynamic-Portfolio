@@ -14,8 +14,8 @@ const messageSchema = new mongoose.Schema({
         required:true,
     },
     status:{
-        type:String,
-        default:"unread"
+        type:Boolean,
+        default:"false"
     },
 },{
     timestamps: true,

@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
-import {
-  Upload,
-  GitBranch,
-  Globe,
-  Terminal,
-  FileText,
-} from "lucide-react";
+import { Upload, GitBranch, Globe, Terminal, FileText } from "lucide-react";
 import axios from "axios";
 import { useAuth } from "@/context/authContext";
 import { useEffect } from "react";
@@ -109,12 +103,12 @@ const AddProject = ({
               Authorization: `Bearer ${usertoken}`,
             },
             withCredentials: true,
-          }
+          },
         );
         if (response.status === 201) {
           // console.log("Project details:", response);
           toast.success("Project submitted successfully!");
-        }else if (response.status === 400) {
+        } else if (response.status === 400) {
           toast.error("project already exist!");
         }
         setFormData({
@@ -143,7 +137,7 @@ const AddProject = ({
               Authorization: `Bearer ${usertoken}`,
             },
             withCredentials: true,
-          }
+          },
         );
         if (response.status === 200) {
           toast.success("Project updated successfully!");
@@ -190,10 +184,7 @@ const AddProject = ({
             {FormSelected === "create" ? "Create Project" : "Update Project"}
           </h1>
         </header>
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-8"
-        >
+        <form onSubmit={handleSubmit} className="space-y-8">
           {/* Section 1: Core Details (ProjectName, Technologies) */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="col-span-1">
@@ -247,7 +238,7 @@ const AddProject = ({
               id="imageUpload"
               name="image"
               accept="image/*"
-              required = {FormSelected === "create"}
+              required={FormSelected === "create"}
               onChange={handleImageChange}
               className="hidden" // Hide default input
             />
@@ -284,8 +275,8 @@ const AddProject = ({
                   {imagePreviewUrl
                     ? "Change Image"
                     : FormSelected === "update" && selectedProject?.image
-                    ? "Update Image"
-                    : "Select Image"}
+                      ? "Update Image"
+                      : "Select Image"}
                 </button>
                 <p className="text-xs text-gray-600 mt-2">
                   Required for project showcase.
@@ -363,10 +354,12 @@ const AddProject = ({
             className="w-full px-4 py-3  bg-[#9c85bd] hover:bg-[#8a73a6] font-bold text-lg rounded-xl transition duration-300 ease-in-out shadow-xl transform hover:scale-[1.005]"
           >
             {loading
-              ? FormSelected === "create" ? "Submitting..." : "Updating..."
+              ? FormSelected === "create"
+                ? "Submitting..."
+                : "Updating..."
               : FormSelected === "create"
-              ? "Add Project to Portfolio"
-              : "Update Project"}
+                ? "Add Project to Portfolio"
+                : "Update Project"}
           </button>
         </form>
       </div>
