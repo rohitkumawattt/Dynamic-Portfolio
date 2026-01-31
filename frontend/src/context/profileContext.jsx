@@ -56,10 +56,10 @@ export const ProfileContextProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (user && profile) {
+    if (user && profile && projects.length > 0 && skills.length > 0) {
       setIsReady(true);
     }
-  }, [user, profile]);
+  }, [user, profile, projects, skills]);
 
   return (
     <profileContext.Provider

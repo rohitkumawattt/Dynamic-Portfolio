@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useProfileContext } from "../../context/profileContext";
+import { useProfileContext } from "../context/profileContext";
 import toast from "react-hot-toast";
-import Feedback from "../feedback/Feedback";
+import {Send} from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 const Connect = () => {
+  const { theme } = useTheme();
   const { baseApi } = useProfileContext();
+  const [sending, setSending] = useState(false);
   // State for form data
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
-  const [sending, setSending] = useState(false);
   // Handle input changes
   const handleChange = (e) => {
     setFormData({
@@ -46,26 +48,29 @@ const Connect = () => {
       setSending(false);
     }
   };
-  // The component structure remains highly similar to the HTML, utilizing standard dark-theme classes.
   return (
-    <section id="connect" className="w-full min-h-[100vh] border-t border-t-blue-100">
-      <h2 className="text-3xl font-bold text-center primary-color mt-3">
-        Let's Connect
+    <section id="connect" className="flex-1 p-2 md:p-0">
+      <h2 className={`bg-clip-text font-black text-transparent text-4xl bg-gradient-to-r ${theme.accent} mt-20 ml-5 md:ml-10 uppercase `}>
+        Let's Connect :-
       </h2>
-      <div className="flex justify-center items-center py-8 px-4 md:px-10">
-        {/* Left side (form div)  */}
-        <div className="md:w-1/2 w-full mb-12 md:mb-0">
-          <div className="bg-gray-800 p-8 md:p-10 rounded-xl shadow-2xl border border-gray-700 h-full">
-            <h2 className="text-3xl font-bold mb-6 text-white">
-              Send Me a Message
-            </h2>
-
+      <div className="py-8 md:px-10">
+        <div className="w-full mb-12 md:mb-0">
+          <div className={`p-10 md:p-14 rounded-xl border ${theme.border} ${theme.card} space-y-8 shadow-2xl transition-all duration-300 hover:shadow-current/5`}>
+            <div className="space-y-2">
+              <h2 className="text-4xl font-black uppercase tracking-tighter">
+                Work together
+              </h2>
+              <p className="text-sm opacity-60">
+               send me the message
+              </p>
+            </div>
             {/* Contact Form */}
-            <form onSubmit={handleSubmit}>
-              <div className="mb-5">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-1">
+                {/* full name  */}
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-gray-300 mb-2"
+                  className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-4"
                 >
                   Full Name
                 </label>
@@ -76,15 +81,15 @@ const Connect = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-gray-700 text-white border border-gray-600 rounded-lg focus:ring-teal-400 focus:border-teal-400 transition duration-150"
-                  placeholder="Jane Doe"
+                  className={`w-full px-6 py-4 rounded-2xl outline-none transition-all ${theme.input}`}
+                  placeholder="Rohit kumawat"
                 />
               </div>
-
+                {/* email id  */}
               <div className="mb-5">
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-300 mb-2"
+                  className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-4"
                 >
                   Email Address
                 </label>
@@ -95,15 +100,15 @@ const Connect = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-gray-700 text-white border border-gray-600 rounded-lg focus:ring-teal-400 focus:border-teal-400 transition duration-150"
+                  className={`w-full px-6 py-4 rounded-2xl outline-none transition-all ${theme.input}`}
                   placeholder="hello@example.com"
                 />
               </div>
-
+                {/* text box  */}
               <div className="mb-6">
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-gray-300 mb-2"
+                  className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-4"
                 >
                   Your Message
                 </label>
@@ -114,7 +119,7 @@ const Connect = () => {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-gray-700 text-white border border-gray-600 rounded-lg focus:ring-teal-400 focus:border-teal-400 transition duration-150"
+                  className={`w-full px-6 py-4 rounded-2xl outline-none transition-all ${theme.input}`}
                   placeholder="Tell me about your project or idea..."
                 ></textarea>
               </div>
@@ -122,15 +127,18 @@ const Connect = () => {
               <button
                 type="submit"
                 disabled={!formData.name || !formData.email || !formData.message}
-                className={`w-full py-3 px-6 text-gray-900 font-bold text-lg rounded-lg shadow-lg  transition duration-300 transform  ${formData.name || formData.email || formData.message ? "bg-[#9c85bd] hover:bg-teal-400 hover:scale-[1.01] focus:outline-none focus:ring-4 focus:ring-teal-500 focus:ring-opacity-50" : "bg-gray-600 cursor-not-allowed"}`}
+                className={`w-full py-5 font-black uppercase text-[10px] tracking-widest  flex items-center justify-center gap-2 transition-all active:scale-95 duration-500 transform  ${formData.name || formData.email || formData.message ? `text-white bg-gradient-to-r ${theme.accent} hover:scale-[1.02] shadow-lg shadow-current/10 rounded-2xl` : "bg-gray-700 cursor-not-allowed rounded-none"}`}
               >
                 {sending ? (
                   <>
-                  <span className="loading loading-spinner loading-md"></span>
+                  <span className={`loading loading-spinner loading-md ${theme.text}`}></span>
                   Sending...
                   </>
                 ) : (
-                  "Send Message"
+                  <>
+                  Send Inquiry  {formData.name || formData.email || formData.message ? <Send size={14} /> : ""}
+                  </>
+                  
                 )}
               </button>
               {/* clear form button  */}
