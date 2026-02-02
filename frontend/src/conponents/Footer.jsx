@@ -7,7 +7,7 @@ const Footer = () => {
   const { theme } = useTheme();
   const { profile } = useProfileContext();
   return (
-    <footer
+    <footer id="footer"
       className={`mt-24 py-16 px-6 border-t ${theme.border} text-center space-y-10`}
     >
       <div className="flex justify-center gap-12">

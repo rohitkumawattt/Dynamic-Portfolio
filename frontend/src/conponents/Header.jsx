@@ -118,6 +118,7 @@ const Header = () => {
               className="social-icons flex gap-4 mt-4"
               style={{ visibility: "hidden" }}
             >
+              <a href="#footer">
               <button
                 className={`contact-btn flex items-center gap-3 px-10 py-4 rounded-full font-bold uppercase text-xs text-white transition-all hover:scale-105 bg-gradient-to-r ${theme.accent} shadow-lg group cursor-pointer`}
               >
@@ -127,6 +128,7 @@ const Header = () => {
                   className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
                 />
               </button>
+              </a>
             </div>
           </div>
         </div>
