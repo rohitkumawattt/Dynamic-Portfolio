@@ -1,31 +1,6 @@
 import Message from "../models/messages.model.js";
 
-export const addMessage = async (req, res) => {
-    try {
-        const { name, email, message } = req.body;
-        const newMessage = new Message({
-            name,
-            email,
-            message,
-        })
-        await newMessage.save();
-        res.status(200).json({
-            success: true,
-            message: "Message sent successfully",
-            newMessage,
-        })
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: "Internal server error",
-            error: error.message,
-        })
-    }
-}
-
 // gets all messages
-
-
 export const getMessages = async (req, res) => {
     try {
         const messages = await Message.find().sort({ createdAt: -1 });
@@ -43,7 +18,6 @@ export const getMessages = async (req, res) => {
     }
 }
 // get message by slug
-
 export const getMessageById = async (req, res) => {
     try {
         const { slug } = req.params;
@@ -71,6 +45,30 @@ export const getMessageById = async (req, res) => {
             success: true,
             message: "Message fetched successfully",
             messages: messages,
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Internal server error",
+            error: error.message,
+        })
+    }
+}
+
+// add messages to database 
+export const addMessage = async (req, res) => {
+    try {
+        const { name, email, message } = req.body;
+        const newMessage = new Message({
+            name,
+            email,
+            message,
+        })
+        await newMessage.save();
+        res.status(200).json({
+            success: true,
+            message: "Message sent successfully",
+            newMessage,
         })
     } catch (error) {
         res.status(500).json({
@@ -137,7 +135,6 @@ export const markMessageAsRead = async (req, res) => {
     });
   }
 };
-
 
 // function for delete msg by id 
 export const deleteMsg = async (req, res) => {

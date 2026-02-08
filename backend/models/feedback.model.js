@@ -12,7 +12,11 @@ const feedbackSchema = new mongoose.Schema({
     rating:{
         type:Number,
         required:true
-    }
+    },
+    status:{
+        type:Boolean,
+        default:false
+    },
 },{
     timestamps:true
 })

@@ -11,16 +11,11 @@ const Messages = () => {
   const { baseApi } = useAuth();
   const [messages, setMessages] = useState([]);
   const [isSearchedMsg, setIsSearchedMsg] = useState(true);
-  // const [mode, setMode] = useState("all");
   const [isAnimating, setIsAnimating] = useState(false);
   const [showDeletePop, setShowDeletePop] = useState(false);
   const [selectedMsgId, setSelectedMsgId] = useState(null);
   const [showModel, setShowModel] = useState(false);
   const [selectedModel, setSelectedModel] = useState("message");
-
-  // const handleMsgToggle = (selectedMode) => {
-  //   setMode(selectedMode);
-  // };
 
   // format the date into time or date as per msg come.
   const formatMessageDate = (dateString) => {
@@ -172,6 +167,7 @@ const Messages = () => {
           formatMessageDate={formatMessageDate}
         />
         <h1 className="text-3xl font-bold text-center text-white">Messages</h1>
+        {/* input and refresh button  */}
         <div className="flex justify-end items-center gap-2 mt-3">
           <span>
             <RefreshCw
@@ -185,32 +181,6 @@ const Messages = () => {
               className={`w-5 h-5 mr-2 cursor-pointer ${isAnimating ? "animate-spin" : ""}`}
             />
           </span>
-          {/* <div className="flex gap-2">
-          <button
-            className={`md:p-2 p-1 rounded-md text-sm font-medium bg-gray-700  transition duration-200 ease-in-out cursor-pointer ${
-              mode === "all" ? "primary-color" : "text-white"
-            }`}
-            onClick={() => handleMsgToggle("all")}
-          >
-            All
-          </button>
-          <button
-            className={`md:p-2 p-1 rounded-md text-sm font-medium bg-gray-700 transition duration-200 ease-in-out cursor-pointer ${
-              mode === "unseen" ? "primary-color" : "text-white"
-            }`}
-            onClick={() => handleMsgToggle("unseen")}
-          >
-            Unseen
-          </button>
-          <button
-            className={`md:p-2 p-1 rounded-md text-sm font-medium bg-gray-700 transition duration-200 ease-in-out cursor-pointer ${
-              mode === "seen" ? "primary-color" : "text-white"
-            }`}
-            onClick={() => handleMsgToggle("seen")}
-          >
-            Seen
-          </button>
-        </div> */}
           <input
             id="SearchMessage"
             onChange={(e) => fetchMsgById(e.target.value)}
@@ -267,7 +237,6 @@ const Messages = () => {
                         <div className="flex gap-3">
                           <span title="Mark as Read/Unread">
                             <MailOpen
-                              
                               onClick={() => toggleMsgStatus(message._id)}
                               size={18}
                               className="hover:text-blue-400 hover:scale-110 transition-all cursor-pointer"
