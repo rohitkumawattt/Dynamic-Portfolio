@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 import { useAuth } from "@/context/authContext";
 import { useEffect } from "react";
 import axios from "axios";
-import Resume from "../components/resume";
+import ResumeManage from "../components/ResumeManage";
 const ProfileSetting = () => {
   const { user, baseApi, usertoken } = useAuth();
   const [isEdit, setIsEdit] = useState(false);
@@ -393,7 +393,7 @@ const ProfileSetting = () => {
         <div className="w-full md:flex gap-20">
           {/* Resumne  */}
           <div className="flex-1 shadow-2xs shadow-blue-700 border border-blue-900 px-4 py-3 rounded-xl">
-            <Resume />
+           <ResumeManage />
           </div>
         </div>
       </div>

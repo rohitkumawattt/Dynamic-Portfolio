@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useAuth } from '../context/authContext';
 import { toast } from 'react-toastify';
 import { ArrowDownToLine, SquarePen, RefreshCw } from 'lucide-react';
-const Resume = () => {
+const ResumeManage = () => {
     const [resumeUrl, setResumeUrl] = useState("");
     const [file, setFile] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
@@ -140,4 +140,4 @@ const Resume = () => {
     );
 };
 
-export default Resume;
+export default ResumeManage;
