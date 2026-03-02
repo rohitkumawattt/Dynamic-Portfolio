@@ -100,7 +100,6 @@ const Header = () => {
               <span
                 className={`bg-clip-text font-black text-transparent bg-gradient-to-r ${theme.accent}`}
               >
-                {" "}
                 {profile?.name || user?.name}
               </span>
             </h1>
@@ -121,8 +120,7 @@ const Header = () => {
               <a href="#footer">
               <button
                 className={`contact-btn flex items-center gap-3 px-10 py-4 rounded-full font-bold uppercase text-xs text-white transition-all hover:scale-105 bg-gradient-to-r ${theme.accent} shadow-lg group cursor-pointer`}
-              >
-                <a href="#footer">Contact Me</a>
+              >Contact Me
                 <ArrowUpRight
                   size={18}
                   className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"

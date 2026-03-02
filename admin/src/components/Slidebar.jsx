@@ -29,11 +29,6 @@ const Slidebar = () => {
               Messages
             </li>
           </Link>
-          <Link to="/feedback">
-            <li className="h-12 leading-none py-3 px-3 border-b hover:scale-105 duration-200">
-              Feedback
-            </li>
-          </Link>
           <Link to="/profile-setting">
             <li className="h-12 leading-none py-3 px-3 border-b hover:scale-105 duration-200">
               Profile Setting

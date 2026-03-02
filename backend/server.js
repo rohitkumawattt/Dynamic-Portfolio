@@ -9,7 +9,6 @@ import projectRoute from "./routes/project.route.js";
 import skillRoute from "./routes/skills.route.js";
 import userProfileRoute from "./routes/userProfile.route.js";
 import messageRouter from "./routes/messages.routes.js";
-import feedbackRouter from "./routes/feedback.route.js"
 import resumeRouter from "./routes/resume.route.js"
 const app = express()
 app.use(cookieParser());
@@ -36,8 +35,6 @@ app.use("/api/skills", skillRoute);
 app.use("/api/user-profile", userProfileRoute);
 // message routes
 app.use("/api/messages", messageRouter);
-// feedback router
-app.use("/api/feedback",feedbackRouter);
 // resume router 
 app.use("/api/resume",resumeRouter);
 app.listen(port, () => {

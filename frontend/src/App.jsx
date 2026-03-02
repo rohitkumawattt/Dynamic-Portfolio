@@ -8,7 +8,6 @@ import Connect from "./conponents/Connect.jsx";
 import Footer from "./conponents/Footer.jsx";
 import { masterTL } from "./gsap/masterTimeline.js";
 import { useProfileContext } from "./context/profileContext.jsx";
-import Feedback from "./conponents/Feedback.jsx";
 import Skeleton from "./conponents/Skeleton.jsx";
 import { useTheme } from "./context/ThemeContext.jsx";
 
@@ -36,16 +35,7 @@ function App() {
         <Header />
         <Skills />
         <Project />
-        <div
-          className={`flex md:flex-row flex-col items-stretch gap-4 md:gap-0 ${theme.borderTop}`}
-        >
-          <div className="flex-1">
-            <Connect />
-          </div>
-          <div className="flex-1">
-            <Feedback />
-          </div>
-        </div>
+        <Connect />
         <Footer />
         <UpGoingBtn />
       </div>

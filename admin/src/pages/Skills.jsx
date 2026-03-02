@@ -43,7 +43,7 @@ const Skills = () => {
           Authorization: `Bearer ${usertoken}`,
         },
       });
-      // console.log("SKILLS CREATION RESPONSE : ", response.data);
+      // console.log("SKILLS CREATION RESPONSE : ", response.data);  
       if (response.status === 200) {
         setIsOpen(false);
         toast.success("Skill created successfully!");
@@ -84,6 +84,8 @@ const Skills = () => {
         return "bg-green-400";
       case "backend":
         return "bg-red-400";
+      case "programming language":
+        return "bg-violet-400";
       case "tools":
         return "bg-blue-400";
       case "softskills":
@@ -98,7 +100,7 @@ const Skills = () => {
   }, []);
   return (
     <div>
-      <h1 className="text-3xl font-bold text-center text-white">Skills</h1>
+      <h1 className="text-3xl font-bold text-center normal-color">Skills</h1>
       {/* Skill adder button  */}
       <div className="flex justify-end mt-3 relative">
         <div className="z-30">
@@ -162,6 +164,9 @@ const Skills = () => {
                     <option value="Backend" className="bg-slate-900">
                       Backend
                     </option>
+                    <option value="Programming Language" className="bg-slate-900">
+                      Programming Language
+                    </option>
                     <option value="Tools" className="bg-slate-900">
                       Tools
                     </option>
@@ -210,6 +215,9 @@ const Skills = () => {
             </p>
             <p className="md:text-xl text-md normal-color bg-red-400 rounded-md md:px-2 px-1 py-1 cursor-pointer hover:bg-red-500 hover:text-white transition duration-200 ease-in-out hover:scale-105">
               Backend
+            </p>
+            <p className="md:text-xl text-md normal-color bg-violet-400 rounded-md md:px-2 px-1 py-1 cursor-pointer hover:bg-violet-500 hover:text-white transition duration-200 ease-in-out hover:scale-105">
+              Programming Language
             </p>
             <p className="md:text-xl text-md normal-color bg-blue-400 rounded-md md:px-2 px-1 py-1 cursor-pointer hover:bg-blue-500 hover:text-white transition duration-200 ease-in-out hover:scale-105">
               Tools

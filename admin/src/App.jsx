@@ -8,7 +8,6 @@ import Skills from "./pages/Skills";
 import Messages from "./pages/Messages";
 import ProfileSetting from "./pages/ProfileSetting";
 import MainLayout from "./layout/MainLayout";
-import Feedback from "./pages/Feedback";
 
 function App() {
   const { isLogin, loading } = useAuth();
@@ -42,7 +41,6 @@ function App() {
             <Route path="/skills" element={<Skills />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/profile-setting" element={<ProfileSetting />} />
-            <Route path="/feedback" element={<Feedback />} />
           </Route>
             {/* If user tries to go to login/register after logged in */}
             <Route path="*" element={<Navigate to="/" replace />} />

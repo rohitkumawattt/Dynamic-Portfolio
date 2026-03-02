@@ -8,6 +8,7 @@ const Skills = () => {
   const { skills } = useProfileContext();
   const skillBar = [
     "All Skills",
+    "Programming Language",
     "Frontend",
     "Backend",
     "Tools",

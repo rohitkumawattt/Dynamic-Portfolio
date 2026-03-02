@@ -5,13 +5,13 @@ import { useGSAP } from "@gsap/react";
 import { masterTL } from "../gsap/masterTimeline.js";
 import { useProfileContext } from "../context/profileContext.jsx";
 import { useTheme } from "../context/ThemeContext.jsx";
-
+import axios from "axios";
 const Navbar = () => {
-  const { user } = useProfileContext();
+  const { user, baseApi } = useProfileContext();
   const { isDarkMode, theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
+  const [isDownloading, setIsDownloading] = useState(false);
   const navRef = useRef();
   const sidebarRef = useRef();
   const sidebarTL = useRef(null);
@@ -20,9 +20,42 @@ const Navbar = () => {
     { label: "Home", id: "home" },
     { label: "Skills", id: "skills" },
     { label: "Projects", id: "projects" },
-    { label: "Let's Connect", id: "connect" },
-    { label: "Feedback", id: "feedback" },
+    { label: "Let's Connect", id: "connect" }
   ];
+
+  // function for download resume 
+  const handleDownload = async () => {
+    setIsDownloading(true);
+    try {
+      // 1. Fetch the latest resume details from your API
+      const res = await axios.get(`${baseApi}/api/resume`);
+      const resumeUrl = res.data.resumeDetails.cloudinaryUrl;
+
+      if (!resumeUrl) return alert("Resume not found!");
+
+      // 2. Fetch the file as a blob to force download
+      const response = await fetch(resumeUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      // 3. Create a temporary anchor element
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `${user?.name || "Rohit"}_Resume.pdf`);
+      document.body.appendChild(link);
+      link.click();
+
+      // 4. Cleanup
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      setIsDownloading(false);
+    } catch (error) {
+      console.error("Download Error:", error);
+      alert("Failed to download resume. Please try again later.");
+    }finally {
+      setIsDownloading(false);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -142,10 +175,10 @@ const Navbar = () => {
           </button>
 
           <button
-            onClick={() => alert("Resume will upload soon!")}
-            className={`nav-action hidden sm:block px-5 py-2 rounded-full font-medium hover:scale-105 active:scale-95 transition-transform text-white line-through cursor-pointer bg-gradient-to-r ${theme.accent}`}
+            onClick={handleDownload}
+            className={`nav-action hidden sm:block px-5 py-2 rounded-full font-medium hover:scale-105 active:scale-95 transition-transform text-white cursor-pointer bg-gradient-to-r ${theme.accent}`}
           >
-            Resume
+            {isDownloading ? "Downloading..." : "Resume"}
           </button>
 
           {/* ADDED ANIMATION CLASSES HERE: nav-action & animate-in */}
@@ -182,12 +215,10 @@ const Navbar = () => {
           ))}
           {/* The Download Resume button is right here! */}
           <button
-            onClick={() => {
-              alert("Resume will upload soon!");
-            }}
-            className={`side-link line-through mt-4 bg-gradient-to-r ${theme.accent} text-white py-4 rounded-xl font-bold text-lg`}
+            onClick={handleDownload}
+            className={`side-link mt-4 bg-gradient-to-r ${theme.accent} text-white py-4 rounded-xl font-bold text-lg`}
           >
-            Download Resume
+            {isDownloading ? "Downloading..." : "Download Resume"}
           </button>
         </div>
       </div>
