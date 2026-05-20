@@ -35,13 +35,13 @@ function App() {
 
         {isLogin && (
           <>
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<Dashboad />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/skills" element={<Skills />} />
-            <Route path="/messages" element={<Messages />} />
-            <Route path="/profile-setting" element={<ProfileSetting />} />
-          </Route>
+            <Route path="/" element={<MainLayout />}>
+              <Route index element={<Dashboad />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/skills" element={<Skills />} />
+              <Route path="/messages" element={<Messages />} />
+              <Route path="/profile-setting" element={<ProfileSetting />} />
+            </Route>
             {/* If user tries to go to login/register after logged in */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </>

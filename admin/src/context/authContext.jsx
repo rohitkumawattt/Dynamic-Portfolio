@@ -32,15 +32,20 @@ export const AuthProvider = ({ children }) => {
       if (error.response?.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
         try {
+          const storedRefreshToken = localStorage.getItem("refreshToken");
           const res = await api.post(
             `${baseApi}/api/users/refresh-access-token`,
-            {},
+            { refreshToken: storedRefreshToken },
             { withCredentials: true }
           );
           const newToken = res.data.accessToken;
+          const newRefreshToken = res.data.refreshToken;
           if (newToken) {
             console.log("🔄 Auto refreshed access token");
             localStorage.setItem("authToken", newToken);
+            if (newRefreshToken) {
+              localStorage.setItem("refreshToken", newRefreshToken);
+            }
             setUserToken(newToken);
             // Update header and retry the original request
             originalRequest.headers.Authorization = `Bearer ${newToken}`;
@@ -78,16 +83,21 @@ export const AuthProvider = ({ children }) => {
   // This function will be called every 10 minutes to renew the access token
   const refreshAccessToken = async () => {
     try {
+      const storedRefreshToken = localStorage.getItem("refreshToken");
       const response = await api.post(
         `${baseApi}/api/users/refresh-access-token`,
-        {},
+        { refreshToken: storedRefreshToken },
         { withCredentials: true } // allows sending cookies
       );
       const newToken = response.data.accessToken;
+      const newRefreshToken = response.data.refreshToken;
       if (newToken) {
         console.log("🔄 Access token refreshed!");
         setUserToken(newToken);
         localStorage.setItem("authToken", newToken);
+        if (newRefreshToken) {
+          localStorage.setItem("refreshToken", newRefreshToken);
+        }
         setIsLogin(true);
         await fetchUser(newToken); // fetch user again with new token
       }
@@ -100,11 +110,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const login = (userData, authToken) => {
+  const login = (userData, authToken, refreshToken) => {
     setUser(userData);
     setUserToken(authToken);
     setIsLogin(true);
     localStorage.setItem("authToken", authToken);
+    if (refreshToken) {
+      localStorage.setItem("refreshToken", refreshToken);
+    }
   };
 
   const logout = () => {
@@ -112,6 +125,7 @@ export const AuthProvider = ({ children }) => {
     setUserToken("");
     setIsLogin(false);
     localStorage.removeItem("authToken");
+    localStorage.removeItem("refreshToken");
   };
 
   useEffect(() => {

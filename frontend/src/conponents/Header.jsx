@@ -70,33 +70,35 @@ const Header = () => {
     <header>
       <div
         id="home"
-        className={`w-full h-[100vh] flex justify-center items-start ${theme.text}`}
+        className={`w-full min-h-screen flex flex-col justify-center items-center pt-16 ${theme.text}`}
       >
-        <div className="w-full flex flex-col justify-start items-center gap-7 md:py-5 py-16 md:h-[550px] md:flex-row-reverse md:justify-evenly md:items-center mt-15">
-          {/* Profile Image  */}
-          <div
-            className={`profile-img w-36 h-36 flex justify-center items-center bg-cover bg-center md:w-72 md:h-72 rounded-full bg-gradient-to-r ${theme.accent} ${theme.dropShadow}`}
-            style={{ visibility: "hidden" }} // Initial state for GSAP
-          >
-            {!imageLoaded && (
-              <div className="absolute inset-0 w-full h-full bg-slate-800 animate-pulse rounded-full z-10" />
-            )}
-            <img
-              className="w-full h-full rounded-full object-cover"
-              src={optimizeCloudinaryUrl(profile?.avatar?.url)}
-              alt={profile?.name || "Profile"}
-              loading="eager"
-              onLoad={() => setImageLoaded(true)}
-            />
+        <div className="w-full max-w-7xl mx-auto flex-1 flex flex-col justify-evenly items-center md:flex-row-reverse md:justify-evenly md:items-center px-6 py-10 gap-8 md:gap-0">
+          {/* Profile Image Wrapper */}
+          <div className="w-full md:w-[35%] lg:w-[30%] flex justify-center items-center">
+            <div
+              className={`profile-img w-36 h-36 flex justify-center items-center bg-cover bg-center md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full bg-gradient-to-r ${theme.accent} ${theme.dropShadow}`}
+              style={{ visibility: "hidden" }} // Initial state for GSAP
+            >
+              {!imageLoaded && (
+                <div className="absolute inset-0 w-full h-full bg-slate-800 animate-pulse rounded-full z-10" />
+              )}
+              <img
+                className="w-full h-full rounded-full object-cover"
+                src={optimizeCloudinaryUrl(profile?.avatar?.url)}
+                alt={profile?.name || "Profile"}
+                loading="eager"
+                onLoad={() => setImageLoaded(true)}
+              />
+            </div>
           </div>
 
           {/* Text Content */}
-          <div className="w-full flex flex-col justify-center items-center gap-4 px-4 md:w-[50%]">
+          <div className="w-full flex flex-col justify-center items-center md:items-start gap-4 px-4 md:w-[60%] lg:w-[65%] text-justify">
             <h1
-              className="intro-title text-2xl md:text-5xl font-light"
+              className="intro-title text-2xl md:text-5xl font-light text-center md:text-left"
               style={{ visibility: "hidden" }}
             >
-              Hello, I'm
+              Hello, I'm{" "}
               <span
                 className={`bg-clip-text font-black text-transparent bg-gradient-to-r ${theme.accent}`}
               >
@@ -106,7 +108,7 @@ const Header = () => {
 
             <p
               ref={introRef}
-              className="about text-sm text-center md:text-justify md:text-lg leading-relaxed"
+              className="about text-xl text-justify md:text-left md:text-lg leading-relaxed"
               style={{ visibility: "hidden" }}
             >
               {profile?.about}
@@ -118,14 +120,14 @@ const Header = () => {
               style={{ visibility: "hidden" }}
             >
               <a href="#footer">
-              <button
-                className={`contact-btn flex items-center gap-3 px-10 py-4 rounded-full font-bold uppercase text-xs text-white transition-all hover:scale-105 bg-gradient-to-r ${theme.accent} shadow-lg group cursor-pointer`}
-              >Contact Me
-                <ArrowUpRight
-                  size={18}
-                  className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
-                />
-              </button>
+                <button
+                  className={`contact-btn flex items-center gap-3 px-10 py-4 rounded-full font-bold uppercase text-xs text-white transition-all hover:scale-105 bg-gradient-to-r ${theme.accent} shadow-lg group cursor-pointer`}
+                >Contact Me
+                  <ArrowUpRight
+                    size={18}
+                    className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+                  />
+                </button>
               </a>
             </div>
           </div>

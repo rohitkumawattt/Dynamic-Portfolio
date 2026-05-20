@@ -46,28 +46,43 @@ const ProjectDetail = ({ showModal, setShowModal, projectSelected }) => {
           </div>
         </div>
         <div className="flex gap-4">
-          <Link
-            to={projectSelected?.liveLink || "#"}
-            onClick={() => {
-              if (!projectSelected?.liveLink)
-                alert("Live link is not available!");
-            }}
-            target="_blank"
-            className={`flex-1 text-center py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest text-white bg-gradient-to-r ${theme.accent} hover:shadow-xl transition-all`}
-          >
-            Live Project
-          </Link>
-          <Link
-            to={projectSelected?.githubLink || "#"}
-            onClick={() => {
-              if (!projectSelected?.githubLink)
-                alert("Live link is not available!");
-            }}
-            target="_blank"
-            className={`flex-1 text-center py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest border ${theme.border} hover:bg-current/5 transition-all`}
-          >
-            GitHub Repo
-          </Link>
+          {projectSelected?.liveLink ? (
+            <Link
+              to={projectSelected.liveLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex-1 text-center py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest text-white bg-gradient-to-r ${theme.accent} hover:shadow-xl transition-all`}
+            >
+              Live Project
+            </Link>
+          ) : (
+            <button
+              disabled
+              className="flex-1 text-center py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest text-slate-500 bg-slate-800/40 border border-slate-700/50 cursor-not-allowed opacity-60 transition-all"
+              title="Live demo link is not available"
+            >
+              Live Link Not Available
+            </button>
+          )}
+
+          {projectSelected?.githubLink ? (
+            <Link
+              to={projectSelected.githubLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex-1 text-center py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest border ${theme.border} hover:bg-current/5 transition-all`}
+            >
+              GitHub Repo
+            </Link>
+          ) : (
+            <button
+              disabled
+              className="flex-1 text-center py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest text-slate-500 bg-slate-800/40 border border-dashed border-slate-700/50 cursor-not-allowed opacity-60 transition-all"
+              title="GitHub repository is not available"
+            >
+              GitHub Not Available
+            </button>
+          )}
         </div>
       </div>
     </section>

@@ -7,7 +7,7 @@ export const register = async (req, res) => {
     try {
         const { fullName, email, password, confirmPassword } = req.body;
         const existingUser = await userModel.findOne({ email });
-        if(!fullName || !email || !password || !confirmPassword){
+        if (!fullName || !email || !password || !confirmPassword) {
             return res.status(400).json({
                 success: false,
                 message: "All fields are required"
@@ -33,7 +33,7 @@ export const register = async (req, res) => {
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new userModel({
-            name:fullName,
+            name: fullName,
             email,
             password: hashedPassword
         })
@@ -61,10 +61,10 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        if(!email || !password){
+        if (!email || !password) {
             return res.status(400).json({
                 success: false,
-                message: "All fields are required"  
+                message: "All fields are required"
             })
         }
         const userLogin = await userModel.findOne({ email });
@@ -85,10 +85,11 @@ export const login = async (req, res) => {
         const accessToken = jwt.sign({ userId: userLogin._id }, process.env.JWT_ACCESS_SECREAT, { expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN });
         const refreshToken = jwt.sign({ userId: userLogin._id }, process.env.JWT_REFRESH_SECREAT, { expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN });
 
+        const isProduction = process.env.NODE_ENV === "production";
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
-            secure: true, // true in production (https)
-            sameSite: "None",
+            secure: isProduction, // false in local development (HTTP), true in production (HTTPS)
+            sameSite: isProduction ? "None" : "Lax", // Cross-site None in production, Lax on localhost
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
@@ -115,21 +116,34 @@ export const login = async (req, res) => {
 // referesh access token controller
 
 export const refereshAccessToken = async (req, res) => {
-    const refereshToken = req.cookies.refreshToken;
+    const refereshToken = req.cookies.refreshToken || req.body.refreshToken || req.headers["x-refresh-token"];
     if (!refereshToken) {
         return res.status(400).json({
             success: false,
-            message: "Referesh token not found" 
+            message: "Referesh token not found"
         })
     }
 
     try {
         const decoded = jwt.verify(refereshToken, process.env.JWT_REFRESH_SECREAT);
+
+        // Generate new Access and rotated Refresh tokens
         const accessToken = jwt.sign({ userId: decoded.userId }, process.env.JWT_ACCESS_SECREAT, { expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN });
+        const newRefreshToken = jwt.sign({ userId: decoded.userId }, process.env.JWT_REFRESH_SECREAT, { expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN });
+
+        const isProduction = process.env.NODE_ENV === "production";
+        res.cookie("refreshToken", newRefreshToken, {
+            httpOnly: true,
+            secure: isProduction,
+            sameSite: isProduction ? "None" : "Lax",
+            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+        })
+
         return res.status(200).json({
             success: true,
             message: "Access token refreshed successfully",
-            accessToken
+            accessToken,
+            refreshToken: newRefreshToken
         })
     } catch (error) {
         return res.status(400).json({
@@ -139,93 +153,6 @@ export const refereshAccessToken = async (req, res) => {
         })
     }
 }
-
-
-
-// export const sendResetOtp = async (req, res) => {
-//     const { email } = req.body;
-//     if (!email) {
-//         return res.status(400).json({
-//             success: false,
-//             message: "Missing email",
-//         })
-//     }
-//     try {
-//         const user = await userModel.findOne({email});
-//         if(!user){
-//             return res.status(404).json({
-//                 success: false,
-//                 message: "User not found",
-//             })
-//         }
-//         const otp = String(Math.floor(100000 + Math.random() * 900000));
-//         user.resetOtp = otp;
-//         user.resetOtpExpireAt = Date.now() + 15 * 60 * 1000;
-//         await user.save();
-//         return res.status(200).json({
-//             success: true,
-//             message: "OTP sent to your email",
-//         })
-
-//     } catch (error) {
-//         return res.status(500).json({
-//             success: false,
-//             message: error.message,
-//         })
-//     }
-// }
-
-// // reset user password 
-// export const resetPassword = async (req, res) => {
-//     const { email, otp, newPassword } = req.body;
-//     if (!email || !otp || !newPassword) {
-//         return res.status(400).json({
-//             success: false,
-//             message: "email, otp, new password are required",
-//         })
-//     }
-//     try {
-//         const user = await userModel.findOne({email});
-//         if(!user){
-//             return res.status(404).json({
-//                 success: false,
-//                 message: "User not found",
-//             })
-//         }
-//         if(user.resetOtp !== otp || user.resetOtp === ""){
-//             return res.status(400).json({
-//                 success: false,
-//                 message: "Invalid OTP",
-//             })
-//         }
-//         if(user.resetOtpExpireAt < Date.now()){
-//             return res.status(400).json({
-//                 success: false,
-//                 message: "OTP expired",
-//             })
-//         }
-//         const hashedPassword = await bcrypt.hash(newPassword, 10);
-//         user.password = hashedPassword;
-//         user.resetOtp = "";
-//         user.resetOtpExpireAt = 0;
-//         await user.save();
-//         return res.status(200).json({
-//             success: true,
-//             message: "Password has been reset successfully",
-//         })
-//     } catch (error) {
-//         return res.status(500).json({
-//             success: false,
-//             message: error.message,
-//         })
-//     }
-// }
-
-
-
-
-
-
 
 // user getMe
 export const getMe = async (req, res) => {

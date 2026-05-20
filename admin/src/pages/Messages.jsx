@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useAuth } from "../context/authContext";
 import { useEffect } from "react";
-import { RefreshCw, MailOpen, Trash } from "lucide-react";
+import { RefreshCw, MailOpen, Trash, Inbox } from "lucide-react";
 import toast from "react-hot-toast";
 import DeletePop from "../components/DeletePop";
 import MsgDetails from "../components/MsgDetails";
@@ -199,64 +199,79 @@ const Messages = () => {
           <div className="flex-1 mt-3">
             {isSearchedMsg ? (
               <>
-                {messages.map((message) => {
-                  const isRead =
-                    message.status === "read" || message.status === true;
-                  return (
-                    <div
-                      key={message._id}
-                      className={`flex items-center gap-3 md:gap-5 shadow-2xs shadow-blue-700 rounded-sm p-3 mb-2 border-b-blue-900 overflow-x-auto ${isRead ? "border-l-4 border-l-green-500" : "border-l-4 border-l-red-500"}`}
-                    >
-                      {/* Mobile → First letter */}
-                      <span className="flex-none md:hidden w-8 h-8 rounded-full bg-primary flex items-center justify-center normal-color cursor-pointer">
-                        {message.name?.charAt(0).toUpperCase()}
-                      </span>
-                      {/* Desktop → Full name */}
-                      <span
-                        onClick={() => markMessageAsRead(message._id)}
-                        className={`flex-none w-20 md:w-32 font-bold normal-color truncate text-sm md:text-base hidden md:block cursor-pointer ${isRead ? "font-normal" : "font-bold"}`}
-                      >
-                        {message.name}
-                      </span>
-
-                      <p
-                        onClick={() => {
-                          markMessageAsRead(message._id);
-                          setSelectedMsgId(message._id);
-                          setSelectedModel("message");
-                          setShowModel(true); // Added: trigger modal visibility
-                        }}
-                        className={`flex-5 min-w-0 line-clamp-1 normal-color cursor-pointer ${message.status ? "font-normal " : " font-bold"}`}
-                      >
-                        {message.message}
-                      </p>
-                      <div className="flex flex-col md:flex-row items-end md:items-center justify-end gap-2 md:gap-3 text-slate-500 ">
-                        <span className="text-xs md:text-sm text-right whitespace-nowrap">
-                          {formatMessageDate(message.createdAt)}
-                        </span>
-                        <div className="flex gap-3">
-                          <span title="Mark as Read/Unread">
-                            <MailOpen
-                              onClick={() => toggleMsgStatus(message._id)}
-                              size={18}
-                              className="hover:text-blue-400 hover:scale-110 transition-all cursor-pointer"
-                            />
-                          </span>
-                          <span title="Delete">
-                            <Trash
-                              onClick={() => {
-                                setSelectedMsgId(message._id);
-                                setShowDeletePop(true);
-                              }}
-                              size={18}
-                              className="hover:text-red-500 hover:scale-110 transition-all cursor-pointer"
-                            />
-                          </span>
-                        </div>
+                {messages.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center py-16 px-4 text-center rounded-lg border border-dashed border-slate-800 bg-slate-900/40 backdrop-blur-md shadow-lg max-w-md mx-auto mt-10 transition-all duration-300">
+                    <div className="relative mb-4">
+                      <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-xl scale-125"></div>
+                      <div className="relative p-4 bg-slate-800/80 rounded-full border border-blue-500/30 text-blue-400">
+                        <Inbox className="w-10 h-10 animate-pulse" />
                       </div>
                     </div>
-                  );
-                })}
+                    <h3 className="text-xl font-bold text-white mb-2">No messages yet</h3>
+                    <p className="text-slate-400 text-sm max-w-xs leading-relaxed">
+                      Your inbox is clean. When visitors contact you through your portfolio website, their messages will appear here.
+                    </p>
+                  </div>
+                ) : (
+                  messages.map((message) => {
+                    const isRead =
+                      message.status === "read" || message.status === true;
+                    return (
+                      <div
+                        key={message._id}
+                        className={`flex items-center gap-3 md:gap-5 shadow-2xs shadow-blue-700 rounded-sm p-3 mb-2 border-b-blue-900 overflow-x-auto ${isRead ? "border-l-4 border-l-green-500" : "border-l-4 border-l-red-500"}`}
+                      >
+                        {/* Mobile → First letter */}
+                        <span className="flex-none md:hidden w-8 h-8 rounded-full bg-primary flex items-center justify-center normal-color cursor-pointer">
+                          {message.name?.charAt(0).toUpperCase()}
+                        </span>
+                        {/* Desktop → Full name */}
+                        <span
+                          onClick={() => markMessageAsRead(message._id)}
+                          className={`flex-none w-20 md:w-32 font-bold normal-color truncate text-sm md:text-base hidden md:block cursor-pointer ${isRead ? "font-normal" : "font-bold"}`}
+                        >
+                          {message.name}
+                        </span>
+
+                        <p
+                          onClick={() => {
+                            markMessageAsRead(message._id);
+                            setSelectedMsgId(message._id);
+                            setSelectedModel("message");
+                            setShowModel(true); // Added: trigger modal visibility
+                          }}
+                          className={`flex-5 min-w-0 line-clamp-1 normal-color cursor-pointer ${message.status ? "font-normal " : " font-bold"}`}
+                        >
+                          {message.message}
+                        </p>
+                        <div className="flex flex-col md:flex-row items-end md:items-center justify-end gap-2 md:gap-3 text-slate-500 ">
+                          <span className="text-xs md:text-sm text-right whitespace-nowrap">
+                            {formatMessageDate(message.createdAt)}
+                          </span>
+                          <div className="flex gap-3">
+                            <span title="Mark as Read/Unread">
+                              <MailOpen
+                                onClick={() => toggleMsgStatus(message._id)}
+                                size={18}
+                                className="hover:text-blue-400 hover:scale-110 transition-all cursor-pointer"
+                              />
+                            </span>
+                            <span title="Delete">
+                              <Trash
+                                onClick={() => {
+                                  setSelectedMsgId(message._id);
+                                  setShowDeletePop(true);
+                                }}
+                                size={18}
+                                className="hover:text-red-500 hover:scale-110 transition-all cursor-pointer"
+                              />
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })
+                )}
               </>
             ) : (
               <>

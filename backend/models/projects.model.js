@@ -13,37 +13,35 @@ const imageSchema = new mongoose.Schema({
 });
 
 const projectSchema = new mongoose.Schema({
-    image:{
-        type:imageSchema,
-        required:true
+    image: {
+        type: imageSchema,
+        required: true
     },
-    ProjectName:{
-        type:String,
-        required:true
+    ProjectName: {
+        type: String,
+        required: true
     },
-    description:{
-        type:String,
-        required:true
+    description: {
+        type: String,
+        required: true
     },
-    technologies:{
-        type:Array,
-        required:true
+    technologies: {
+        type: Array,
+        required: true
     },
-    githubLink:{
-        type:String,
-        required:true
+    githubLink: {
+        type: String,
     },
-    liveLink:{
-        type:String,
-        required:true
+    liveLink: {
+        type: String,
     },
-    user:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User",
-        required:true
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
     }
-},{
-    timestamps:true
+}, {
+    timestamps: true
 });
 
 const project = mongoose.model("Project", projectSchema)

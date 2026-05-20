@@ -1,4 +1,4 @@
-import project from "../models/projects.model.js"; 
+import project from "../models/projects.model.js";
 import user from "../models/user.model.js";
 import { uploadToCloudinary, deleteFromCloudinary } from "../utils/cloudinary.js";
 
@@ -135,12 +135,12 @@ export const updateProject = async (req, res) => {
         specficProject.githubLink = githubLink;
         specficProject.liveLink = liveLink;
         specficProject.image = newImage;
-        
+
         await specficProject.save();
         return res.status(200).json({
             success: true,
             message: "Project updated successfully",
-            project:specficProject,
+            project: specficProject,
         })
     } catch (error) {
         return res.status(500).json({

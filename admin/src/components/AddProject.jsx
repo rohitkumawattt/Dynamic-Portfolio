@@ -165,9 +165,8 @@ const AddProject = ({
 
   return (
     <section
-      className={`w-full h-screen bg-[#00000099] fixed top-0 left-0 flex items-center justify-center z-50 transition-all duration-300 ${
-        showForm ? "flex" : "hidden"
-      } p-4 sm:p-8`}
+      className={`w-full h-screen bg-[#00000099] fixed top-0 left-0 flex items-center justify-center z-50 transition-all duration-300 ${showForm ? "flex" : "hidden"
+        } p-4 sm:p-8`}
     >
       <div className="md:w-[50%] w-[95%] max-w-4xl bg-[#ffffff18] normal-color backdrop-blur-3xl shadow-2xl rounded-2xl p-6 sm:p-10 border border-gray-100 my-8 max-h-[600px] overflow-y-auto relative">
         {/* Close Button placed absolutely within the scrollable container */}
@@ -313,8 +312,7 @@ const AddProject = ({
                 className="text-sm font-semibold mb-1 flex items-center"
               >
                 <GitBranch className="w-4 h-4 mr-2 text-blue-500" />
-                GitHub Repository URL{" "}
-                <span className="text-red-500 ml-1">*</span>
+                GitHub Repository URL
               </label>
               <input
                 type="url"
@@ -322,7 +320,6 @@ const AddProject = ({
                 name="githubLink"
                 value={formData.githubLink}
                 onChange={handleInputChange}
-                required
                 placeholder="https://github.com/your-project-repo"
                 className="w-full p-3 border border-gray-300 rounded-lg transition duration-150 ease-in-out focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm"
               />
@@ -330,10 +327,10 @@ const AddProject = ({
             <div className="col-span-1">
               <label
                 htmlFor="liveLink"
-                className="text-sm font-semiboldmb-1 flex items-center"
+                className="text-sm font-semibold mb-1 flex items-center"
               >
                 <Globe className="w-4 h-4 mr-2 text-blue-500" />
-                Live Demo URL <span className="text-red-500 ml-1">*</span>
+                Live Demo URL
               </label>
               <input
                 type="url"
@@ -341,7 +338,6 @@ const AddProject = ({
                 name="liveLink"
                 value={formData.liveLink}
                 onChange={handleInputChange}
-                required
                 placeholder="https://your-project.app"
                 className="w-full p-3 border border-gray-300 rounded-lg transition duration-150 ease-in-out focus:ring-2 focus:ring-[#8a73a6] focus:border-[#8a73a6] shadow-sm"
               />

@@ -6,7 +6,7 @@ import AddProject from "../components/AddProject";
 import axios from "axios";
 import { useAuth } from "@/context/authContext";
 import { SquarePen, Trash, MoveRight, RefreshCw } from "lucide-react";
-import toast from "react-hot-toast"; 
+import toast from "react-hot-toast";
 const Projects = () => {
   const [showModal, setShowModal] = useState(false);
   const [showForm, setShowForm] = useState(false);
@@ -28,7 +28,7 @@ const Projects = () => {
       }
     } catch (error) {
       console.error("Error fetching project:", error);
-    }finally{
+    } finally {
       setLoading(false);
     }
   };
@@ -66,7 +66,7 @@ const Projects = () => {
   };
   useEffect(() => {
     fetchProject();
-  },[]);
+  }, []);
   const openDetails = (project) => {
     setSelectedProject(project || {});
     setShowModal(true);

@@ -40,7 +40,7 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      login(response.data.user, response.data.accessToken);
+      login(response.data.user, response.data.accessToken, response.data.refreshToken);
       if (response.data.success) {
         toast.success("Login successful");
         setIsSuccess(true);
@@ -76,29 +76,25 @@ const Login = () => {
         {/* Success Message Area */}
         {isSubmitted && (
           <div
-            className={`transition-all duration-500 ease-in-out transform ${
-              isSubmitted
+            className={`transition-all duration-500 ease-in-out transform ${isSubmitted
                 ? "opacity-100 translate-y-0 scale-100"
                 : "opacity-0 -translate-y-3 scale-95 pointer-events-none"
-            }`}
+              }`}
           >
             <div
-              className={`border-l-4 p-4 mb-6 rounded-lg shadow-md ${
-                isSuccess
+              className={`border-l-4 p-4 mb-6 rounded-lg shadow-md ${isSuccess
                   ? "bg-green-900 border-green-500"
                   : "bg-red-900 border-red-500"
-              }`}
+                }`}
             >
               <div className="flex items-center">
                 <CheckCircle
-                  className={`h-5 w-5 mr-3 ${
-                    isSuccess ? "text-green-400" : "text-red-400 "
-                  }`}
+                  className={`h-5 w-5 mr-3 ${isSuccess ? "text-green-400" : "text-red-400 "
+                    }`}
                 />
                 <p
-                  className={`font-semibold ${
-                    isSuccess ? "text-green-300" : "text-red-300"
-                  }`}
+                  className={`font-semibold ${isSuccess ? "text-green-300" : "text-red-300"
+                    }`}
                 >
                   {message}
                 </p>
