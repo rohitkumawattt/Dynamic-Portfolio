@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useRef, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import SplitType from "split-type";
 import gsap from "gsap";
@@ -11,12 +11,15 @@ import { useTheme } from "../context/ThemeContext.jsx";
 const Header = () => {
   const { user, profile } = useProfileContext();
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const { theme } = useTheme();
   const introRef = useRef(null);
 
+  const aboutText = profile?.about || "";
+  const isLongText = aboutText.length > 180;
+
   const optimizeCloudinaryUrl = (url) => {
     if (!url) return "";
-    // return url.replace("/upload/", "/upload/f_auto,q_auto,w_400,c_fill/");
     return url.replace(
       "/upload/",
       "/upload/f_auto,q_auto,w_500,c_thumb,g_face/",
@@ -55,9 +58,8 @@ const Header = () => {
     })
       .from(".intro-title", { y: 40, opacity: 0, duration: 0.5 })
       .from(split.lines, { y: 40, opacity: 0, stagger: 0.08, duration: 0.5 })
-      // Updated selector to match the class added below
       .from(".contact-btn", {
-        y: 30, // Changed from -30 to 30 for a better "pop up" feel
+        y: 30,
         opacity: 0,
         duration: 0.5,
         ease: "power2.out",
@@ -106,13 +108,37 @@ const Header = () => {
               </span>
             </h1>
 
-            <p
-              ref={introRef}
-              className="about text-xl text-justify md:text-left md:text-lg leading-relaxed"
-              style={{ visibility: "hidden" }}
-            >
-              {profile?.about}
-            </p>
+            <div className="w-full">
+              <p
+                ref={introRef}
+                className={`about text-base sm:text-lg text-justify md:text-left leading-relaxed transition-all duration-300 ${
+                  isLongText && !isExpanded ? "line-clamp-3 md:line-clamp-none" : ""
+                }`}
+                style={{ visibility: "hidden" }}
+              >
+                {aboutText}
+              </p>
+
+              {/* See All button — sirf mobile pe dikhega, center me */}
+              {isLongText && (
+                <div className="flex justify-center w-full mt-2.5 md:hidden">
+                  <button
+                    onClick={() => setIsExpanded((prev) => !prev)}
+                    className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold tracking-wide transition-all duration-200 cursor-pointer group hover:opacity-90 active:scale-95"
+                  >
+                    <span className={`bg-clip-text text-transparent bg-gradient-to-r ${theme.accent} font-bold underline underline-offset-4 decoration-purple-500/30`}>
+                      {isExpanded ? "See Less" : "See All..."}
+                    </span>
+                    <ChevronDown
+                      size={16}
+                      className={`transition-transform duration-300 text-purple-400 ${
+                        isExpanded ? "rotate-180" : "group-hover:translate-y-0.5"
+                      }`}
+                    />
+                  </button>
+                </div>
+              )}
+            </div>
 
             {/* Social Icons / Button Container */}
             <div
