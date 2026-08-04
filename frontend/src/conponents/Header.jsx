@@ -111,9 +111,8 @@ const Header = () => {
             <div className="w-full">
               <p
                 ref={introRef}
-                className={`about text-base sm:text-lg text-justify md:text-left leading-relaxed transition-all duration-300 ${
-                  isLongText && !isExpanded ? "line-clamp-3 md:line-clamp-none" : ""
-                }`}
+                className={`about text-base sm:text-lg text-justify md:text-left leading-relaxed transition-all duration-300 ${isLongText && !isExpanded ? "line-clamp-3 md:line-clamp-none" : ""
+                  }`}
                 style={{ visibility: "hidden" }}
               >
                 {aboutText}
@@ -131,9 +130,8 @@ const Header = () => {
                     </span>
                     <ChevronDown
                       size={16}
-                      className={`transition-transform duration-300 text-purple-400 ${
-                        isExpanded ? "rotate-180" : "group-hover:translate-y-0.5"
-                      }`}
+                      className={`transition-transform duration-300 text-purple-400 ${isExpanded ? "rotate-180" : "group-hover:translate-y-0.5"
+                        }`}
                     />
                   </button>
                 </div>

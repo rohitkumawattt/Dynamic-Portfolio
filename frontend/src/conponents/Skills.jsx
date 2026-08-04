@@ -17,15 +17,15 @@ const Skills = () => {
     "Soft Skills",
   ];
 
-  const activeSkills = isSkillActive === "All Skills" 
-    ? skills 
+  const activeSkills = isSkillActive === "All Skills"
+    ? skills
     : skills.filter(skill => skill.category === isSkillActive);
 
   return (
     <section id="skills" className={`w-full min-h-[100vh] ${theme.borderTop}`}>
-      <h1 className={`bg-clip-text font-black text-transparent text-4xl bg-gradient-to-r ${theme.accent} mt-20 ml-5 uppercase `}>
-        Skills :-
-      </h1>
+      <h2 className={`bg-clip-text font-black text-transparent text-4xl bg-gradient-to-r ${theme.accent} mt-20 ml-5 uppercase `}>
+      Technical Skills:-
+      </h2>
       <div className="w-full p-3 mt-6 flex items-center flex-wrap gap-4">
         {skillBar.map((skill, index) => {
           return (
@@ -53,13 +53,13 @@ const Skills = () => {
             ))}
           </ul>
         </div>
-        
+
         {/* language animation here */}
         <div className="order-2 hidden md:flex justify-center items-center w-full relative min-h-[350px] md:min-h-[400px] overflow-hidden">
           {/* Ambient Background Blur Orbs */}
           <div className="absolute top-1/4 left-1/4 w-28 h-28 bg-purple-500/5 rounded-full blur-2xl animate-pulse" />
           <div className="absolute bottom-1/4 right-1/4 w-36 h-36 bg-cyan-500/5 rounded-full blur-3xl animate-pulse" />
-          
+
           <div className="relative w-full h-[350px] md:h-[400px]">
             {/* React Icon */}
             <motion.div

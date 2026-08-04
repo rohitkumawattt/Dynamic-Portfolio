@@ -6,11 +6,6 @@ const Skeleton = () => {
       {/* Navbar Skeleton */}
       <div className="flex justify-between items-center w-full">
         <div className="h-8 w-full bg-gray-800 animate-pulse rounded"></div>
-        <div className="hidden md:flex gap-6">
-          {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="h-4 w-20 bg-gray-800 animate-pulse rounded"></div>
-          ))}
-        </div>
       </div>
 
       {/* Header Skeleton */}

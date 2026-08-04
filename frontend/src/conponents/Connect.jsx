@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useProfileContext } from "../context/profileContext";
 import toast from "react-hot-toast";
-import {Send} from "lucide-react";
+import { Send } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 const Connect = () => {
   const { theme } = useTheme();
@@ -51,7 +51,7 @@ const Connect = () => {
   return (
     <section id="connect" className="flex-1 p-2 md:p-0">
       <h2 className={`bg-clip-text font-black text-transparent text-4xl bg-gradient-to-r ${theme.accent} mt-20 ml-5 md:ml-10 uppercase `}>
-        Let's Connect :-
+        Get In Touch:-
       </h2>
       <div className="py-8 md:px-10">
         <div className="w-full mb-12 md:mb-0">
@@ -61,7 +61,7 @@ const Connect = () => {
                 Work together
               </h2>
               <p className="text-sm opacity-60">
-               send me the message
+                send me the message
               </p>
             </div>
             {/* Contact Form */}
@@ -85,7 +85,7 @@ const Connect = () => {
                   placeholder="Rohit kumawat"
                 />
               </div>
-                {/* email id  */}
+              {/* email id  */}
               <div className="mb-5">
                 <label
                   htmlFor="email"
@@ -104,7 +104,7 @@ const Connect = () => {
                   placeholder="hello@example.com"
                 />
               </div>
-                {/* text box  */}
+              {/* text box  */}
               <div className="mb-6">
                 <label
                   htmlFor="message"
@@ -131,14 +131,14 @@ const Connect = () => {
               >
                 {sending ? (
                   <>
-                  <span className={`loading loading-spinner loading-md ${theme.text}`}></span>
-                  Sending...
+                    <span className={`loading loading-spinner loading-md ${theme.text}`}></span>
+                    Sending...
                   </>
                 ) : (
                   <>
-                  Send Inquiry  {formData.name || formData.email || formData.message ? <Send size={14} /> : ""}
+                    Send Inquiry  {formData.name || formData.email || formData.message ? <Send size={14} /> : ""}
                   </>
-                  
+
                 )}
               </button>
               {/* clear form button  */}

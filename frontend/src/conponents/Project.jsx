@@ -75,15 +75,15 @@ const Project = () => {
         </div>
 
         {projects.length > 6 && (
-        <div className="flex justify-center mt-10">
-          <button 
-            onClick={() => setShowAll(!showAll)}
-            className={`px-8 py-3 rounded-full border ${theme.border} ${theme.text} hover:scale-105 transition-all font-bold`}
-          >
-            {showAll ? "Show Less" : "Show More"}
-          </button>
-        </div>
-      )}
+          <div className="flex justify-center mt-10">
+            <button
+              onClick={() => setShowAll(!showAll)}
+              className={`px-8 py-3 rounded-full border ${theme.border} ${theme.text} hover:scale-105 transition-all font-bold`}
+            >
+              {showAll ? "Show Less" : "Show More"}
+            </button>
+          </div>
+        )}
       </section>
       <ProjectDetail
         showModal={showModal}
