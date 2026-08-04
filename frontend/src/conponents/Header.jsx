@@ -19,7 +19,7 @@ const Header = () => {
   const isLongText = aboutText.length > 180;
 
   const optimizeCloudinaryUrl = (url) => {
-    if (!url) return "";
+    if (!url) return "frontend/src/assets/rohit_image.jpg";
     return url.replace(
       "/upload/",
       "/upload/f_auto,q_auto,w_500,c_thumb,g_face/",
@@ -100,10 +100,7 @@ const Header = () => {
               className="intro-title text-2xl md:text-5xl font-light text-center md:text-left"
               style={{ visibility: "hidden" }}
             >
-              Hello, I'm{" "}
-              <span
-                className={`bg-clip-text font-black text-transparent bg-gradient-to-r ${theme.accent}`}
-              >
+              Hello, I'm &nbsp;<span className={`bg-clip-text font-black text-transparent bg-gradient-to-r ${theme.accent}`}>
                 {profile?.name || user?.name}
               </span>
             </h1>
