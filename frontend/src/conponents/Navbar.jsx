@@ -52,7 +52,7 @@ const Navbar = () => {
     } catch (error) {
       console.error("Download Error:", error);
       alert("Failed to download resume. Please try again later.");
-    }finally {
+    } finally {
       setIsDownloading(false);
     }
   };
@@ -122,28 +122,26 @@ const Navbar = () => {
 
   const initials = user?.name
     ? user.name
-        .split(" ")
-        .map((n) => n[0])
-        .join("")
-        .toUpperCase()
-    : "RK";
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase() : "RK";
 
   return (
     <header className="fixed top-0 left-0 w-full z-50">
       <nav
         ref={navRef}
-        className={`mx-auto transition-all duration-500 flex justify-between items-center backdrop-blur-md border ${theme.border} ${theme.text} ${
-          isScrolled
-            ? "w-full px-6 py-3 shadow-xl border-b border-b-white/40"
-            : "w-[92%] md:w-[85%] mt-6 rounded-full px-8 py-4 border shadow-sm"
-        }`}
+        className={`mx-auto transition-all duration-500 flex justify-between items-center backdrop-blur-md border ${theme.border} ${theme.text} ${isScrolled
+          ? "w-full px-6 py-3 shadow-xl border-b border-b-white/40"
+          : "w-[92%] md:w-[85%] mt-6 rounded-full px-8 py-4 border shadow-sm"
+          }`}
       >
         {/* Logo */}
         <div className="logo animate-in text-2xl font-black italic tracking-tighter cursor-pointer">
           <span
             className={`bg-clip-text text-transparent bg-gradient-to-r ${theme.accent}`}
           >
-            {initials}.
+            <a href="#home">{initials}.</a>
           </span>
         </div>
 

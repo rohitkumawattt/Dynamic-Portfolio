@@ -24,7 +24,7 @@ const Skills = () => {
   return (
     <section id="skills" className={`w-full min-h-[100vh] ${theme.borderTop}`}>
       <h2 className={`bg-clip-text font-black text-transparent text-4xl bg-gradient-to-r ${theme.accent} mt-20 ml-5 uppercase `}>
-      Technical Skills:-
+        Technical Skills:-
       </h2>
       <div className="w-full p-3 mt-6 flex items-center flex-wrap gap-4">
         {skillBar.map((skill, index) => {
