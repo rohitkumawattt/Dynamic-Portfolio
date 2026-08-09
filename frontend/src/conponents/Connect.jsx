@@ -38,14 +38,6 @@ const Connect = () => {
     } else if (!emailRegex.test(formData.email.trim())) {
       newErrors.email = "Please enter a valid email address";
     }
-
-    // Message Validation
-    if (!formData.message.trim()) {
-      newErrors.message = "Message cannot be empty";
-    } else if (formData.message.trim().length < 10) {
-      newErrors.message = "Message should be at least 10 characters long";
-    }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
